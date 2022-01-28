@@ -118,7 +118,7 @@ class HomeController extends Controller
         // var_dump($leaveFormData);
         // die;
 
-        return view('leaveprint2', ['leaveFormData' => $leaveFormData]);
+        return view('leaveprint', ['leaveFormData' => $leaveFormData]);
         //$dompdf = new Dompdf();
         // $invoice = PDF::loadView('leaveprint', ['leaveFormData' => $leaveFormData])->setOptions(['defaultFont' => 'sans-serif']);
 
