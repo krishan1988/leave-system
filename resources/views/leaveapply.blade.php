@@ -9,7 +9,11 @@
             <div class="panel-body">
 
                 <div class="form-group col-md-9">
-
+                    @if (session('error'))
+                    <div class="alert alert-error">
+                        {{ session('error') }}
+                    </div>
+                @endif
                     <div class="panel panel-default studentdetail">
 
                         <div class="panel panel-default col-sm-11 st">
@@ -123,7 +127,7 @@
                                                 <label class="control-label col-md-3">Form No :</label>
                                                 <div class="col-md-2">
                                                     <input type="text" class="form-control" id="fromno" name="formno"
-                                                        required="required">
+                                                        readonly value="{{$leaveFormData["formId"]}}">
                                                 </div>
 
                                             </div>

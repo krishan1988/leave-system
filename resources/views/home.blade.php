@@ -25,6 +25,7 @@
                                 <th>Contact No 1</th>
                                 <th>Contact No 2</th>
                                 <th>View Leave Details</th>
+                                <th>Report</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,7 @@
                                 <td>{{$student->contact_no_1}}</td>
                                 <td>{{$student->contact_no_2 }}</td>
                                 <td><a href="{{url('fillLeaveForm/')}}/{{$student->id }}">Apply Leave</a></td>
+                                <td><a href="{{url('getReport/')}}/{{$student->id }}">Get Report</a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -49,6 +51,7 @@
                               <th>Contact No 1</th>
                               <th>Contact No 2</th>
                               <th>View Leave Details</th>
+                              <th>Report</th>
                             </tr>
                         </tfoot>
                     </table>

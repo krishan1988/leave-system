@@ -22,6 +22,7 @@ Route::post('/applyLeaveForm', [App\Http\Controllers\HomeController::class, 'req
 Route::get('/fillLeaveForm/{studentId}', [App\Http\Controllers\HomeController::class, 'fillLeaveForm'])->name('fillLeaveForm');
 Route::get('/printLeaveForm/{formId}', [App\Http\Controllers\HomeController::class, 'printLeaveForm'])->name('printLeaveForm');
 Route::get('/appliedLeaveList', [App\Http\Controllers\HomeController::class, 'appliedLeaveList'])->name('getLeaveForm');
+Route::get('/getReport/{studentId}', [App\Http\Controllers\HomeController::class, 'getReport'])->name('getReport');
 // Route::get('/printLeaveForm/{formId}', function (Request $request, $formId) {
 //     return 'FormId '.$formId;
 // });

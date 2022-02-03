@@ -36,8 +36,63 @@ class HomeController extends Controller
 
     public function requestLeaveForm(Request $request)
     {
-        // var_dump($request->all());
-        // die;
+        // Check leave count is available
+
+        $leaveDetails = LeaveDetailTb::get();
+        $leaveCount['Leave'] = 7;
+        $leaveCount['ShortLeave'] = 7;
+        $leaveCount['MedicalLeave'] = 14;
+        foreach ($leaveDetails as $key => $value) {
+            if ($value['leave_type'] == 1) {
+                $leaveCount['Leave'] = $value['leave_count'];
+            }
+            if ($value['leave_type'] == 2) {
+                $leaveCount['ShortLeave'] = $value['leave_count'];
+            }
+            if ($value['leave_type'] == 3) {
+                $leaveCount['MedicalLeave'] = $value['leave_count'];
+            }
+        }
+
+        $usedLeaveCount['Leave'] = 0;
+        $usedLeaveCount['ShortLeave'] = 0;
+        $usedLeaveCount['MedicalLeave'] = 0;
+
+        $studentId = $request->studentId ?? 0;
+
+        // Get Leave Count from student
+        $leaveDetails = StudentLeaveAppliedTb::where('applied_year', '=', now()->year)
+        ->where('student_id', '=', $studentId)
+        ->get();
+
+        foreach ($leaveDetails as $key => $value) {
+            if ($value['applied_leave_type_id'] == 1) {
+                $usedLeaveCount['Leave'] += $value['no_of_leave_days'];
+            }
+            if ($value['applied_leave_type_id'] == 2) {
+                $usedLeaveCount['ShortLeave'] += $value['no_of_leave_days'];
+            }
+            if ($value['applied_leave_type_id'] == 3) {
+                $usedLeaveCount['MedicalLeave'] += $value['no_of_leave_days'];
+            }
+        }
+        //make the changes
+        $availableLeaveCount['Leave'] = $leaveCount['Leave'] - $usedLeaveCount['Leave'];
+        $availableLeaveCount['ShortLeave'] = $leaveCount['ShortLeave'] - $usedLeaveCount['ShortLeave'];
+        $availableLeaveCount['MedicalLeave'] = $leaveCount['MedicalLeave'] - $usedLeaveCount['MedicalLeave'];
+
+        if ($request->typeOfLeave == 1 && $availableLeaveCount['Leave'] < $request->days) {
+            //return error message
+            return redirect()->route('fillLeaveForm', ['studentId' => $studentId])->with('error', 'You don`t have '.$request->days.' leave days to apply');
+        }
+        if ($request->typeOfLeave == 2 && $availableLeaveCount['ShortLeave'] < $request->days) {
+            //return error message
+            return redirect()->route('fillLeaveForm', ['studentId' => $studentId])->with('error', 'You don`t have '.$request->days.' short leave days to apply');
+        }
+        if ($request->typeOfLeave == 3 && $availableLeaveCount['MedicalLeave'] < $request->days) {
+            //return error message
+            return redirect()->route('fillLeaveForm', ['studentId' => $studentId])->with('error', 'You don`t have  '.$request->days.' medical leave days to apply');
+        }
 
         $studentLeave = new StudentLeaveFormTb();
         $studentLeave->student_id = $request->studentId;
@@ -55,6 +110,16 @@ class HomeController extends Controller
         $studentLeave->save();
 
         $lastFormId = $studentLeave->id;
+
+        if ($lastFormId) {
+            $studentLeaveAppliedTb = new StudentLeaveAppliedTb();
+            $studentLeaveAppliedTb->student_id = $request->studentId;
+            $studentLeaveAppliedTb->student_leave_form_id = $lastFormId;
+            $studentLeaveAppliedTb->applied_leave_type_id = $request->typeOfLeave;
+            $studentLeaveAppliedTb->no_of_leave_days = $request->days;
+            $studentLeaveAppliedTb->applied_year = now()->year;
+            $studentLeaveAppliedTb->save();
+        }
 
         return redirect('printLeaveForm/'.$lastFormId.'')->with('status', 'Successfully updated');
     }
@@ -173,6 +238,12 @@ class HomeController extends Controller
         // Get Student details
         $studentData = StudentTb::find($studentId);
         $leaveFormData['studentData'] = $studentData;
+        $lastFormId = StudentLeaveFormTb::orderBy('id', 'desc')->first();
+
+        $leaveFormData['formId'] = $lastFormId->id + 1;
+
+        var_dump($leaveFormData['formId']);
+        die;
 
         return view('leaveapply', ['leaveFormData' => $leaveFormData]);
         // Get Student details from student ID
@@ -184,5 +255,61 @@ class HomeController extends Controller
         ->orderBy('student_leave_form_tb.id', 'DESC')->get(['student_leave_form_tb.*', 'student_tb.full_name', 'student_tb.index_no']);
 
         return view('appliedleave', ['leaveDetails' => $leaveDetails]);
+    }
+
+    // Print leave details
+    public function getReport($studentId)
+    {
+        $leaveFormData['leaveformData'] = StudentLeaveFormTb::join('student_tb', 'student_leave_form_tb.student_id', '=', 'student_tb.id')
+        ->where('student_tb.id', '=', $studentId)->get(['student_leave_form_tb.*', 'student_tb.full_name', 'student_tb.index_no']);
+
+        $leaveDetails = LeaveDetailTb::get();
+        $leaveCount['Leave'] = 7;
+        $leaveCount['ShortLeave'] = 7;
+        $leaveCount['MedicalLeave'] = 14;
+        foreach ($leaveDetails as $key => $value) {
+            if ($value['leave_type'] == 1) {
+                $leaveCount['Leave'] = $value['leave_count'];
+            }
+            if ($value['leave_type'] == 2) {
+                $leaveCount['ShortLeave'] = $value['leave_count'];
+            }
+            if ($value['leave_type'] == 3) {
+                $leaveCount['MedicalLeave'] = $value['leave_count'];
+            }
+        }
+
+        $usedLeaveCount['Leave'] = 0;
+        $usedLeaveCount['ShortLeave'] = 0;
+        $usedLeaveCount['MedicalLeave'] = 0;
+
+        // Get Leave Count from student
+        $leaveDetails = StudentLeaveAppliedTb::where('applied_year', '=', now()->year)
+        ->where('student_id', '=', $studentId)
+        ->get();
+
+        foreach ($leaveDetails as $key => $value) {
+            if ($value['applied_leave_type_id'] == 1) {
+                $usedLeaveCount['Leave'] += $value['no_of_leave_days'];
+            }
+            if ($value['applied_leave_type_id'] == 2) {
+                $usedLeaveCount['ShortLeave'] += $value['no_of_leave_days'];
+            }
+            if ($value['applied_leave_type_id'] == 3) {
+                $usedLeaveCount['MedicalLeave'] += $value['no_of_leave_days'];
+            }
+        }
+        //make the changes
+        $availableLeaveCount['Leave'] = $leaveCount['Leave'] - $usedLeaveCount['Leave'];
+        $availableLeaveCount['ShortLeave'] = $leaveCount['ShortLeave'] - $usedLeaveCount['ShortLeave'];
+        $availableLeaveCount['MedicalLeave'] = $leaveCount['MedicalLeave'] - $usedLeaveCount['MedicalLeave'];
+
+        $leaveFormData['availableLeaveCount'] = $availableLeaveCount;
+
+        // Get Student details
+        $studentData = StudentTb::find($studentId);
+        $leaveFormData['studentData'] = $studentData;
+
+        return view('leavereport', ['leaveData' => $leaveFormData]);
     }
 }
