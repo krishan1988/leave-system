@@ -9,7 +9,7 @@
     <div class="col-md-10 content">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Dashboard
+                Dashboard / Student Details
             </div>
             <div class="panel-body">
 
@@ -25,6 +25,7 @@
                                 <th>Contact No 1</th>
                                 <th>Contact No 2</th>
                                 <th>View Leave Details</th>
+                                <th>Edit</th>
                                 <th>Report</th>
                             </tr>
                         </thead>
@@ -38,6 +39,7 @@
                                 <td>{{$student->contact_no_1}}</td>
                                 <td>{{$student->contact_no_2 }}</td>
                                 <td><a href="{{url('fillLeaveForm/')}}/{{$student->id }}">Apply Leave</a></td>
+                                <td><a href="{{url('createStudent/')}}/{{$student->id }}">Edit</a></td>
                                 <td><a href="{{url('getReport/')}}/{{$student->id }}">Get Report</a></td>
                             </tr>
                             @endforeach
@@ -51,6 +53,7 @@
                               <th>Contact No 1</th>
                               <th>Contact No 2</th>
                               <th>View Leave Details</th>
+                              <th>Edit</th>
                               <th>Report</th>
                             </tr>
                         </tfoot>

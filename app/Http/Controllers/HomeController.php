@@ -170,9 +170,9 @@ class HomeController extends Controller
             }
         }
         //make the changes
-        $availableLeaveCount['Leave'] = $leaveCount['Leave'] - $usedLeaveCount['Leave'];
-        $availableLeaveCount['ShortLeave'] = $leaveCount['ShortLeave'] - $usedLeaveCount['ShortLeave'];
-        $availableLeaveCount['MedicalLeave'] = $leaveCount['MedicalLeave'] - $usedLeaveCount['MedicalLeave'];
+        $availableLeaveCount['Leave'] = $usedLeaveCount['Leave'];
+        $availableLeaveCount['ShortLeave'] = $usedLeaveCount['ShortLeave'];
+        $availableLeaveCount['MedicalLeave'] = $usedLeaveCount['MedicalLeave'];
 
         $leaveFormData['availableLeaveCount'] = $availableLeaveCount;
 
@@ -180,7 +180,7 @@ class HomeController extends Controller
         $studentData = StudentTb::find($studentId);
         $leaveFormData['studentData'] = $studentData;
 
-        // var_dump($leaveFormData);
+        // var_dump($leaveFormData['availableLeaveCount']);
         // die;
 
         return view('leaveprint', ['leaveFormData' => $leaveFormData]);
@@ -241,9 +241,6 @@ class HomeController extends Controller
         $lastFormId = StudentLeaveFormTb::orderBy('id', 'desc')->first();
 
         $leaveFormData['formId'] = $lastFormId->id + 1;
-
-        var_dump($leaveFormData['formId']);
-        die;
 
         return view('leaveapply', ['leaveFormData' => $leaveFormData]);
         // Get Student details from student ID

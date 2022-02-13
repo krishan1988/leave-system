@@ -85,6 +85,7 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="{{url('/home')}}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
                             <li><a href="{{url('/appliedLeaveList')}}"><span class="glyphicon glyphicon-plane"></span> Applied Leave</a></li>
+                            <li><a href="{{url('/createStudent')}}"><span class="glyphicon glyphicon-signal"></span> Create Student</a></li>
         
                             <!-- Dropdown-->
                             {{-- <li class="panel panel-default" id="dropdown">

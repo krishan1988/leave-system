@@ -79,8 +79,8 @@
                                     <div class="row">
                                         <div class="col-lg-4">
 
-                                            <label class="control-label1 col-md-4">Balance Leave</label>
-                                            <div class="col-sm-7">
+                                            <label class="control-label1 col-md-6">Total number of leave</label>
+                                            <div class="col-sm-5">
                                                 <input type="text" class="form-control" id="conatctnumber" readonly  value="{{$leaveFormData["availableLeaveCount"]["Leave"] ?? ''}}">
                                             </div>
                                         </div>
@@ -88,7 +88,7 @@
 
 
                                         <div class="col-lg-4">
-                                            <label class="control-label1 col-md-6">Balance Short Leave</label>
+                                            <label class="control-label1 col-md-6">Total number of short leave</label>
                                             <div class="col-md-4">
                                                 <input type="text" class="form-control" id="conatctnumber" readonly  value="{{$leaveFormData["availableLeaveCount"]["ShortLeave"] ?? ''}}">
                                             </div>
@@ -97,8 +97,8 @@
 
                                         <div class="col-lg-4">
 
-                                            <label class="control-label1 col-md-4">Balance Medical</label>
-                                            <div class="col-sm-7">
+                                            <label class="control-label1 col-md-6">Total number of medical leave</label>
+                                            <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="conatctnumber" readonly  value="{{$leaveFormData["availableLeaveCount"]["MedicalLeave"] ?? ''}}">
                                             </div>
 
@@ -194,7 +194,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Date of Arrival :</label>
+                                                <label class="control-label col-md-3">Date to Arrival :</label>
                                                 <div class="col-md-3">
                                                     <input type="date" class="form-control" id="place" name="arrival_date"
                                                         required="required">
@@ -206,6 +206,21 @@
                                                         required="required">
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Actual arrival date:</label>
+                                                <div class="col-md-3">
+                                                    <input type="date" class="form-control" id="place" name="arrival_date"
+                                                        required="required">
+                                                </div>
+
+                                                <label class="control-label col-md-3">Time :</label>
+                                                <div class="col-md-2">
+                                                    <input type="time" class="form-control" id="place" name="arrival_time"
+                                                        required="required">
+                                                </div>
+                                            </div>
+
 
 
                                             <div class="form-group">

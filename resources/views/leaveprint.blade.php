@@ -13,314 +13,274 @@
 
 </head>
 <style>
-    @media print{
-        body *{
+    @media print {
+        body * {
             visibility: hidden;
         }
-        
-        .printarea, .printarea * {
+
+        .printarea,
+        .printarea * {
             visibility: visible;
         }
-        #print-btn{
+
+        #print-btn {
             display: none;
         }
     }
+
 </style>
 
 
 <body id='printarea'>
     <div class="text-center">
-        <button onclick="PrintElem('#printarea')"  id="print-btn"> Print This Page</button>
+        <button onclick="PrintElem('#printarea')" id="print-btn"> Print This Page</button>
         <br>
         <a href="{{url('/appliedLeaveList')}}" id="homelink">Back to Home</a>
     </div>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="text-align: center">
             <div class="container-fluid">
-                <div class="image" style="width: 100%;display:flex">
-                    <div style="width: 20%">
-                        <img src="{{ asset('img/collageLogo.jpg') }}" width="100" height="140">
-                </div>
-                <div style="width:80%"> 
-                    <img src="{{ asset('img/college_image.jpg') }}" width="600px" height="150" class="image1">
-                </div>
+                <div class="image" style="width: 100%;">
+                    <h1>AL-HAQQANIYYAH ARABIC COLLEGE</h1>
+                    <h2>DASKARA, MURUTHAGAHAMULA, SRI LANKA</h2>
+                    <h3>081 2316 313 – 0770252582</h3>
                 </div>
             </div>
         </nav>
         <hr>
 
         <div class="container">
-            <div class="row" style="padding-left: 300px;display:flex">
-                <div style="width: 70%">
-                <label class="control-label">விடுமுறை அனுமதி கோரல் </label>
-                <br>
-                <label class="control-label">Permission For Leave Form</label>
-                
-            </div>
-
-            <div style="width: 30%" style="display: flex">
-                <div>
-                    <input type="text" class="form-control-sm-8" id="date" name="date"  value="{{$leaveFormData[0]->applied_date ?? ""}}" placeholder="Date">
-                    </div>
-                <label class="control-label">திகதி</label>
-                <br>
-                <label class="control-label">Date</label>
-                
-            </div>
-            </div>
-            
             <div class="row">
-                     
-               
-            </div>
-            <form class="form-horizontal">
+                <div style="text-align:center">
 
-               
-                <br><br>
+                    <h2>Permission For Leave Form</h2>
+
+                </div>
+            </div>
+            <div style="width: 80%;padding-left: 100px;text-align:end">
+
+
+                <label class="control-label">Form No : </label><label class="control-label">{{$leaveFormData[0]->form_number ?? ""}}</label><br>
+                <label class="control-label">Date : </label><label class="control-label">{{$leaveFormData[0]->applied_date ?? ""}}</label>
+
+            </div>
+
+            <form class="form-horizontal">
                 <div class="row" style="padding-left: 100px">
                     <div class="student">
-                        <div class="col-lg-6" style="display: flex">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">மாணவர் பெயர் </label>
+                        <div class="col-lg-6">
+                            <div><label>Student Details
+                                    ...................................................................................................................................................</label><br>
+                            </div>
                             <br>
-                            <label class="control-label col-md-3">Student Name</label>
-                           
-                            
-                        </div>
-                        <div class="col-sm-8" style="padding-left: 30px">
-                            <input type="text" class="form-control" id="conatctnumber" name="conatctnumber" value="{{$leaveFormData[0]->full_name ?? ""}}">
-                        </div>
-                        <div class="form-group" style="padding-left: 100px">
-                            <label class="control-label col-md-3">சுட்டெண் </label>
+                            <div class="form-group" style="display: flex;padding-left: 56px;">
+                                <br>
+                                <label class="control-label col-md-3" style="padding-right: 86px;font-weight: bold;">Name</label>
+                                <label class="control-label col-md-3">: {{$leaveFormData['studentData']->full_name ?? ""}}</label>
+
+                            </div><br>
+                            <div class="form-group" style="display: flex;padding-left: 56px;">
+
+                                <label class="control-label col-md-3" style="padding-right: 70px;font-weight: bold;">Address</label>
+                                <label class="control-label col-md-3">: {{$leaveFormData['studentData']->address ?? ""}}</label>
+
+                            </div><br>
+                            <div class="form-group" style="display: flex;padding-left: 56px;">
+
+                                <label class="control-label col-md-3" style="padding-right: 27px;font-weight: bold;">Grade or floor</label>
+                                <label class="control-label col-md-3">: {{$leaveFormData['studentData']->grade_or_floor  ?? ""}}</label>
+
+                            </div>
+
                             <br>
-                        <label class="control-label col-md-3">Index Number</label>
-                       
-                        
-                        </div>
-                        <div class="col-sm-4" style="padding-left: 30px">
-                            <label>{{$leaveFormData[0]->index_no ?? ""}}</label>
-                          
-                        </div>
-                        </div>
-    
-                
-                       
-                    </div>
-                    <br>
-
-                    <div class="form-group" style="display: flex">
-                        <div>
-                        <label class="control-label col-md-2">செல்லுமிடம்</label>
-                        <br>
-                        <label class="control-label col-md-2">Place</label>
-                    </div>
-                        <div class="input col-sm-9" style="padding-left: 51px;">
-                            <input type="text" class="form-control" id="place" name="place" value="{{$leaveFormData[0]->place ?? ""}}" style="width: 500px;">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group" style="display: flex">
-                        <div>
-                        <label class="control-label col-md-2">செல்லும் காரணம்</label>
-                        <br>
-                        <label class="control-label col-md-2">Reason</label>
-                        </div>
-                        <div class="col-sm-9" style="padding-left: 45px;">
-                            <input type="text" class="form-control" id="reason" name="reason" value="{{$leaveFormData[0]->reason ?? ""}}" style="width: 500px;">
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="container1">
-                        <div class="row" style="display: flex">
-    
-
-                                <div class="form-group col-md-7">
-                                    <label for="inputState">கல்லூரியிலிருந்து புறப்படும் திகதி</label>
-                                    <br>
-                                    <label for="inputState">Date of departure from the College</label>
-                                </div>
-                                    <div class="col-sm-12">
-                                        <input type="date" class="form-control" id="place" name="" value="{{$leaveFormData[0]->depature_date ?? ""}}">
-                                    </div>
-                                
-                            
-
-                          
-                                <div class="form-group col-md-7" style="padding-left: 20px">
-                                    <label for="inputState">நேரம்</label>
-                                    <br>
-                                    <label for="inputState">Time</label>
-                                </div>
-                                    <div class="col-sm-12" style="padding-left: 20px">
-                                        <input type="time" class="form-control" id="time" name="" value="{{$leaveFormData[0]->depature_time ?? ""}}">
-                                    </div>
-                                </div>
-                           
-                        </div>
-                        <br>
-
-
-                        <div class="row" style="display: flex">
-                           
-
-                                <div class="form-group col-md-7">
-                                    <label for="inputState">திரும்ப வரவேண்டிய திகதி </label>
-                                    <br>
-                                    <label for="inputState">Date of Arrival</label>
-                                </div>
-                                    <div class="col-sm-12" style="padding-left: 50px">
-                                        <input type="date" class="form-control" id="place" name="" value="{{$leaveFormData[0]->arrival_date ?? ""}}">
-                                    </div>
-                                
-
-
-
-
-        
-
-                    
-                                <div class="form-group col-md-7" style="padding-left: 20px">
-                                    <label for="inputState">நேரம்</label>
-                                    <br>
-                                    <label for="inputState">Time</label>
-                                </div>
-                                    <div class="col-sm-12" style="padding-left: 30px">
-                                        <input type="text" class="form-control" id="time" name="" value="{{$leaveFormData[0]->arrival_time ?? ""}} ">
-                                    </div>
-                               
-                            
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="row" style="display: flex;padding-left:100px">
-                        
-                        
-                                <div class="col-sm-12">
-                                    <label for="">...................................</label>
-                                    <br>
-                                    <label for="isectionalhead">பகுதிப் பொறுப்பாசிரியர்</label>
-                                    <br>
-                                    <label for="isectionalhead">Sectional Head</label>
-                                    
-                                </div>
-                            
-                       
-
-                        
-                            
-                            <br>
-                                <div class="col-sm-12" style="padding-left: 20px">
-                                    <label for="">..........................................</label>
-                                    <br>
-                                    <label for="principle">அதிபர் / உப அதிபர் </label>
-                                    <br>
-                                    <label for="principle">Principle/Vice Principle</label>
-                                    
-                                </div>
-                           
-                            <br>
-                                <div class="col-sm-12" style="padding-left: 20px">
-                                    <label for="">...................................</label>
-                                    <br>
-                                    <label for="Signature">பெற்றோர் பாதுகாவலர் கையொப்பம். </label>
-                                    <br>
-                                    <label for="Signature">Parents or Guardian Signature</label>
-                                   
-                                </div>
-                    </div>
-<br>
-                    <hr>
-
-                    <div class="panel panel-default" style="display: flex" >
-                      
-                       
-                                <div class="form-group col-md-7" style="padding-left: 100px">
-                                    <label for="balance">Balance Leave</label>
-                                    <br>
-                                    <input type="text" class="form-control" id="balanceleave" value="{{$leaveFormData["availableLeaveCount"]['Leave']}}">
-                                </div>
-                                
-                            
-                                <div class="form-group col-md-7" style="padding-left: 20px">
-                                    <label for="balance">Balance Short Leave</label>
-                                    <br>
-                                    <input type="text" class="form-control" id="balanceshortleave" value="{{$leaveFormData["availableLeaveCount"]['ShortLeave']}}">
-                                </div>
-                                
-                            
-                                <div class="form-group col-md-7" style="padding-left: 20px">
-                                    <label for="balance">Balance Medical Leave</label>
-                                    <br>
-                                    <input type="text" class="form-control" id="balancemedicalleave" value="{{$leaveFormData["availableLeaveCount"]['MedicalLeave']}}">
-                                </div>
-                               
-                               
-
-                          
-                                <div class="form-group col-md-7" style="padding-left: 20px">
-                                    <label for="balance">Addition Leave</label>
-                                    <br>
-                                    <input type="text" class="form-control" id="additionleave" value="">
+                            <div class="col-lg-6">
+                                <div><label>Leave Details
+                                        ...................................................................................................................................................</label><br>
                                 </div>
                                 <br>
-                                  
-                                
+                                <div class="form-group" style="display: flex;padding-left: 56px;">
+                                    <br>
+                                    <label class="control-label col-md-3" style="padding-right: 29px;font-weight: bold;">Type of Leave</label>
+                                    <label class="control-label col-md-3">: {{$leaveFormData[0]->leave_type  ?? ""}}</label>
+
+                                </div><br>
+                                <div class="form-group" style="display: flex;padding-left: 56px;">
+
+                                    <label class="control-label col-md-3" style="padding-right: 75px;font-weight: bold;">Reason</label>
+                                    <label class="control-label col-md-3">: {{$leaveFormData[0]->reason  ?? ""}}</label>
+
+                                </div><br>
+                                <div class="form-group" style="display: flex;padding-left: 56px;">
+
+                                    <label class="control-label col-md-3" style="padding-right: 44px;font-weight: bold;">Place</label>
+                                    <label class="control-label col-md-3">: {{$leaveFormData[0]->place  ?? ""}}</label>
+
+                                </div>
+                                <br>
+                                <div class="row" style="display: flex;padding-left: 56px;">
+
+
+                                    <div class="form-group col-md-7">
+
+                                        <label for="inputState" style="padding-right: 17px;font-weight: bold;">Date of departure from College</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label style="control-label col-md-3">: {{$leaveFormData[0]->depature_date ??""}}</label>
+                                    </div>
+
+
+
+
+                                    <div class="form-group col-md-7" style="padding-left: 51px">
+
+                                        <label for="inputState" style="font-weight: bold">Time</label>
+                                    </div>
+                                    <div class="col-sm-12" style="padding-left: 20px">
+                                        <label style="control-label col-md-3">: {{$leaveFormData[0]->depature_time ??
+                                            ""}}</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row" style="display: flex;padding-left: 56px;">
+
+
+                                    <div class="form-group col-md-7">
+
+                                        <label for="inputState" style="padding-right: 128px;font-weight: bold;">Time to arrival</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label style="control-label col-md-3">: {{$leaveFormData[0]->arrival_date ??
+                                            ""}}</label>
+                                    </div>
+
+
+
+
+                                    <div class="form-group col-md-7" style="padding-left: 51px">
+
+                                        <label for="inputState" style="font-weight: bold;">Time</label>
+                                    </div>
+                                    <div class="col-sm-12" style="padding-left: 20px">
+                                        <label style="control-label col-md-3">: {{$leaveFormData[0]->arrival_time ?? ""}}</label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <br>
-<hr>
-                       
-                        <div class="panel panel-default">
-                            <div class="note">
-        
-                                <label for="note">குறிப்பு : குறித்த நேரத்தில் சமூகமளிக்கத்தவரும் பட்சத்தில் தகுந்த நடவடிக்கை எடுக்கப்படும். </label>
-                                <label for="note">Note : Disciplined action will be talen if not reached on time</label><br>
-                               
-                            </div>
+
+                            <hr>
+
                         </div>
 
+
                     </div>
+                    <br>
+                    <div class="row" style="display: flex;">
+
+
+                        <div class="col-sm-12" style="padding: 27px;border: 1px solid;text-align: center;">
+                            <label for="">Total Number of Leave @ 2022</label>
+                            <br>
+                            <br>
+                            <label for="isectionalhead" style="font-size: x-large;">{{$leaveFormData['availableLeaveCount']["Leave"] ?? ""}}</label>
+
+                        </div>
+
+                        <br>
+                        <div class="col-sm-12" style="padding: 27px;border: 1px solid;margin-left: 10px;text-align: center;">
+                            <label for="">Total Number of Short Leave @ 2022</label>
+                            <br>
+                            <br>
+
+                            <label for="principle" style="font-size: x-large;">{{$leaveFormData['availableLeaveCount']["ShortLeave"] ?? ""}}</label>
+
+                        </div>
+
+                        <br>
+                        <div class="col-sm-12" style="padding: 27px;border: 1px solid;margin-left: 10px;text-align: center;">
+                            <label for="">Total Number of Medical Leave @ 2022</label>
+                            <br>
+                            <br>
+                            <label for="Signature" style="font-size: x-large;">{{$leaveFormData['availableLeaveCount']["MedicalLeave"] ?? ""}}</label>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="panel panel-default" style="text-align: center">
+                        <div class="note">
+                            <label for="note">Note : Disciplined action will be talen if not reached on time</label><br>
+
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="panel panel-default" style="text-align: center">
+                        <div class="note">
+                            <label for="note">Office Use only</label><br>
+
+                        </div>
+                    </div>
+<br>
+                    <div class="panel panel-default" style="display: flex">
+
+
+                        <div class="form-group col-md-7" style="padding-left: 100px">
+                            <label for="balance">Actual arrival date</label>
+                            
+                            <label>...............{{$leaveFormData[0]->actual_arival_date ?? ""}}.............</label>
+                        </div>
+
+
+                        <div class="form-group col-md-7" style="padding-left: 20px">
+                            <label for="balance">Time</label>
+                 
+                            <label>................{{$leaveFormData[0]->actual_arival_time ?? ""}}..............</label>
+                        </div>
+
+
+                    </div>
+                
                 </div>
+        </div>
 
 
-            </form>
+        </form>
 </body>
 
 </html>
 
 <script>
+    window.onload = function() {
+        var button = document.getElementById('print-btn');
+        button.click();
+       //window.location.replace("{{url('appliedLeaveList')}}");
+    }
 
-window.onload = function(){
-    var button = document.getElementById('print-btn');
-    button.click();
-    //window.location.replace("{{url('appliedLeaveList')}}");
-}
-
-  function PrintElem(elem)
-    {
+    function PrintElem(elem) {
         Popup($('<div/>').append($(elem).clone()).html());
     }
 
-    function Popup(data) 
-    {
-    
-    
-        var mywindow =  window.open('', '_blank');
-     
+    function Popup(data) {
+
+
+        var mywindow = window.open('', '_blank');
+
         // mywindow.document.write('<scr' + 'ipt src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></scr' + 'ipt>');
         // mywindow.document.write('<scr' + 'ipt src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></scr' + 'ipt>');
         // mywindow.document.write('<scr' + 'ipt src="//code.jquery.com/jquery-1.11.1.min.js"></scr' + 'ipt>');
 
-         mywindow.document.write('<link rel="stylesheet" media="print" href="{{ asset('css/print.css') }}" type="text/css"/>');
-         
-     
+        mywindow.document.write('<link rel="stylesheet" media="print" href="{{ asset("css/print.css") }}" type="text/css"/>');
+
+
         mywindow.document.write('</head><body><style> #print-btn,#homelink{display: none;}</style>');
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');
-        //document.getElementById("print-btn").style.display="none";
+       
         mywindow.print();
+        document.getElementById("print-btn").style.display = "initial";
         mywindow.close();
+       setTimeout(function(){history.back();}, 1000);
 
         return true;
     }
+
 </script>

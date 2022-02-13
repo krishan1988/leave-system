@@ -22,6 +22,7 @@
                                 <th>Full Name</th>
                                 <th>Leave Type</th>
                                 <th>Days</th>
+                                <th>Edit</th>
                                 <th>Print Preview</th>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                                 <td>{{$leave->full_name}}</td>
                                 <td>{{$leave->leave_type}}</td>
                                 <td>{{$leave->number_of_leave_days}}</td>
+                                <td><a href="{{url('editLeaveForm')}}/{{$leave->id }}">Edit</a></td>
                                 <td><a href="{{url('printLeaveForm')}}/{{$leave->id }}">Print Preview</a></td>
                             </tr>
                             @endforeach
@@ -42,6 +44,7 @@
                                 <th>Full Name</th>
                                 <th>Leave Type</th>
                                 <th>Days</th>
+                                <th>Edit</th>
                                 <th>Print Preview</th>
                             </tr>
                         </tfoot>
@@ -51,7 +54,28 @@
             </div>
             <script type="text/javascript" >
                 $(document).ready(function() {
-    $('#example').DataTable();
+                    $('#example thead th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    $('#example').DataTable({
+        initComplete: function () {
+            // Apply the search
+            this.api().columns().every( function () {
+                var that = this;
+                $( 'input', this.header() ).on( 'keyup change clear', function () {
+                   
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        }
+    });
+    
 } );
             </script>
         @endsection

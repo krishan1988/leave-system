@@ -45,7 +45,7 @@
                           }
                           ?>
                             <tr>
-                                <td>{{$leave->id}}</td>
+                                <td>{{$leave->index_no}}</td>
                                 <td>{{$leave->full_name}}</td>
                                 <td>{{$leave->applied_date}}</td>
                                 <td>{{$leaveType}}</td>
